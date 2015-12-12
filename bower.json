@@ -1,0 +1,23 @@
+{
+  "name": "chwiki",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Ben Halverson <benhalverson33@gmail.com> (http://benhalverson.me/)"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/benhalverson/faq-app",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-ui-router": "ui-router#~0.2.15",
+    "bootstrap": "~3.3.6"
+  }
+}
