@@ -76,10 +76,19 @@ apiRoutes.route('/edit/:faq_id')
           } else {
             res.json({message: 'FAQ updated' });
           }
-        })
+        });
       }
-    })
+    });
   })
+  .delete(function(req, res){
+    Faq.remove({_id: req.params.faq_id}, function(err, faq){
+      if(err) {
+        res.send(err)
+      } else {
+        res.json({message: 'FAQ deleted' });
+      }
+    });
+  });
 
 app.use('/api', apiRoutes);
 
