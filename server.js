@@ -22,5 +22,22 @@ app.get('/', function(req, res) {
   res.send('The api is working');
 });
 
+var apiRoutes = express.Router();
+
+apiRoutes.get('/', function(req, res){
+  res.json({ message: 'Some message goes here' });
+});
+
+apiRoutes.get('/list', function(req, res) {
+  Faq.find({}, function(err, faqs) {
+    res.json(faqs);
+  });
+});
+
+app.use('/api', apiRoutes);
+
+
+
+
 app.listen(port);
-console.log('Listening on port' + port);
+console.log('Listening on port: ' + port);
