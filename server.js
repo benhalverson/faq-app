@@ -61,7 +61,7 @@ apiRoutes.route('/edit/:faq_id')
       } else {
         res.json(faq);
       }
-    })
+    });
   })
   .put(function(req, res){
     Faq.findById(req.params.faq_id, function(err, faq){
