@@ -9,7 +9,7 @@ var config = require('./config');
 var Faq = require('./app/models/faq');
 
 var port = process.env.PORT || 3000;
-mongoose.connect(config.database);
+mongoose.connect(config.database || process.env.MONGODB_URI);
 app.set('Supersecret', config.secret);
 
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -17,11 +17,6 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 // routes
-
-app.get('/', function(req, res) {
-  res.send('The api is working');
-});
-
 var apiRoutes = express.Router();
 
 apiRoutes.get('/', function(req, res){
@@ -31,6 +26,16 @@ apiRoutes.get('/', function(req, res){
 apiRoutes.get('/list', function(req, res) {
   Faq.find({}, function(err, faqs) {
     res.json(faqs);
+  });
+});
+
+apiRoutes.get('/list/:faq_id', function(req, res) {
+  Faq.findById(req.params.faq_id, function(err, faq){
+    if(err) {
+      res.send(err);
+    } else {
+      res.json(faq);
+    }
   });
 });
 
