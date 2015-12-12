@@ -34,6 +34,53 @@ apiRoutes.get('/list', function(req, res) {
   });
 });
 
+// create a faq
+apiRoutes.route('/create')
+  .post(function(req, res){
+    var faq = new Faq();
+    faq.title = req.body.title;
+    faq.body = req.body.body;
+    faq.author = req.body.author;
+
+    faq.save(function(err){
+      if(err) {
+        console.error('Oh noes!', err);
+        res.send(err);
+      } else {
+        res.json(faq);
+      }
+    });
+  });
+
+// edit a faq
+apiRoutes.route('/edit/:faq_id')
+  .get(function(req, res){
+    Faq.findById(req.params.faq_id, function(err, faq){
+      if(err) {
+        res.send(err);
+      } else {
+        res.json(faq);
+      }
+    })
+  })
+  .put(function(req, res){
+    Faq.findById(req.params.faq_id, function(err, faq){
+      if(err) {
+        res.send(err)
+      } else {
+        faq.title = req.body.title;
+        faq.body = req.body.body;
+        faq.save(function(err){
+          if(err) {
+            res.send(err)
+          } else {
+            res.json({message: 'FAQ updated' });
+          }
+        })
+      }
+    })
+  })
+
 app.use('/api', apiRoutes);
 
 
